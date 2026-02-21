@@ -1,0 +1,215 @@
+/* ================= إعدادات عامة ================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    direction: rtl;
+    text-align: right;
+    background-color: #f0f2f5;
+    font-family: 'Almarai', 'Segoe UI', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ================= الهيدر واللوجو (صغير ومرتب) ================= */
+header {
+    background-color: #ffffff;
+    padding: 10px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.logo {
+    width: 45px; /* حجم صغير ومناسب جداً */
+    height: auto;
+    display: block;
+}
+
+/* ================= قسم البطل (Hero) ================= */
+.hero {
+    background: linear-gradient(135deg, #FFFC00, #FFE500); /* أصفر سناب */
+    padding: 80px 0;
+    text-align: center;
+    color: #333;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+    font-weight: 800;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ================= الفيديو ================= */
+.video-container {
+    max-width: 800px;
+    margin: 40px auto;
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    background-color: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+}
+
+/* ================= الأزرار ================= */
+button, .btn-primary {
+    background-color: #1a1a1a;
+    color: #FFFC00;
+    border: none;
+    padding: 15px 50px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    display: inline-block;
+    text-decoration: none;
+}
+
+button:hover, .btn-primary:hover {
+    background-color: #000;
+    transform: translateY(-3px);
+}
+
+/* شكل الزر عند الانتظار (Disabled) */
+button:disabled {
+    background-color: #333;
+    color: #ccc;
+    cursor: wait; /* مؤشر الانتظار */
+    transform: none;
+    opacity: 0.8;
+}
+
+.secondary-text {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 20px;
+}
+
+/* ================= الميزات ================= */
+.features {
+    padding: 60px 0;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 2.2rem;
+    color: #1a1a1a;
+    margin-bottom: 50px;
+    font-weight: 700;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.feature-item {
+    background-color: #fcfcfc;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.feature-item:hover { transform: translateY(-5px); }
+.feature-item img { width: 50px; height: 50px; margin-bottom: 20px; }
+.feature-item h3 { font-size: 1.4rem; color: #333; margin-bottom: 10px; font-weight: 700; }
+
+/* ================= النموذج (Form) ================= */
+.form-wrapper {
+    background-color: #ffffff;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.form-wrapper h2 { text-align: center; margin-bottom: 20px; color: #1a1a1a; }
+
+.form-group { margin-bottom: 20px; text-align: right; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 700; color: #444; font-size: 0.95rem; }
+.form-group input {
+    width: 100%; padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fafafa;
+    transition: 0.3s;
+}
+.form-group input:focus {
+    border-color: #FFFC00; outline: none; background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(255, 252, 0, 0.2);
+}
+
+/* ================= شاشة التحميل ================= */
+.loading-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 9999;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+
+.loader {
+    width: 50px; height: 50px;
+    background-color: #FFFC00;
+    border-radius: 12px; margin-bottom: 20px;
+    border: 2px solid #000;
+    animation: snapPulse 1.5s infinite ease-in-out;
+}
+
+@keyframes snapPulse {
+    0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(255, 252, 0, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(255, 252, 0, 0); }
+    100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(255, 252, 0, 0); }
+}
+
+/* ================= الفوتر ================= */
+footer {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    text-align: center;
+    padding: 25px 0;
+    margin-top: auto;
+}

